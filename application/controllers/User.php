@@ -18,4 +18,10 @@ class User extends CI_Controller {
 			'transaction_id' => $transactionID
 		));
 	}
+	
+	public function update_purchase_status() {
+		$refID = $this->input->post('ref_id');
+		$this->db->where('ref_id', $refID);
+		$this->db->update('transactions');
+	}
 }
