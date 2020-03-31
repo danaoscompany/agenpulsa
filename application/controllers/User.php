@@ -3,7 +3,7 @@
 class User extends CI_Controller {
 
 	public function purchase() {
-		$refID = $this->input->post('ref_id'));
+		$refID = $this->input->post('ref_id');
 		$code = $this->input->post('code');
 		$phone = $this->input->post('phone');
 		$price = intval($this->input->post('price'));
