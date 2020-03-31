@@ -20,8 +20,14 @@ class User extends CI_Controller {
 	}
 	
 	public function update_purchase_status() {
-		$refID = $this->input->post('ref_id');
+		/*$refID = $this->input->post('ref_id');
 		$this->db->where('ref_id', $refID);
-		$this->db->update('transactions');
+		$this->db->update('transactions');*/
+		
+		$data = file_get_contents('php://input');
+		$my_file = 'callback.jsom';
+		$handle = fopen($my_file, 'w') or die('Cannot open file:  '.$my_file);
+		fwrite($handle, $data);
+		fclose($handle);
 	}
 }
