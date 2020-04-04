@@ -63,7 +63,7 @@ class User extends CI_Controller {
         'transaction_id' => '' . $transactionID,
         'phone' => $transaction['phone'],
         'price' => $transaction['price'],
-        'remaining_balance' => $transaction['remaining_balance']
+        'remaining_balance' => $transaction['balance']
       ]);
     $json = json_encode($arrayToSend);
     $headers = array();
