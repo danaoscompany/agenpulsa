@@ -44,9 +44,14 @@ class User extends CI_Controller {
 		  ))->row_array()['fcm_token'];
     $url = "https://fcm.googleapis.com/fcm/send";
     $serverKey = 'AAAAon_cfQo:APA91bEL0BldzQJ3z8yJl4ePybkpyvARvRXsyw4tSMJj9ffDWjkzlzBWTZsJnbx3c9hKaaagjC8gIHsFfPeDMK29L70yIwAJtlMuMHHKphUNLc4yHWUoaCZmnuPTG8hAZfZPp1VKN-PX';
-    $title = "Notification title";
-    $body = "Hello I am from Your php server";
-    $notification = array('title' =>$title , 'body' => $body, 'sound' => 'default', 'badge' => '1');
+    $title = "Info Pembayaran";
+    $body = "Ketuk untuk info lebih lanjut";
+    if ($status == 1) {
+      $title = 'Pembayaran berhasil';
+    } else if ($status == 2) {
+      $title = 'Pembayaran gagal';
+    }
+    $notification = array('title' => $title, 'body' => $body, 'sound' => 'default', 'badge' => '1');
     $arrayToSend = array('to' => $token, 'notification' => $notification,'priority'=>'high', 'data' => [
         'action' => 'com.prod.agenpulsa.PAYMENT_SUCCESS',
         'payment_status' => '' . $status,
