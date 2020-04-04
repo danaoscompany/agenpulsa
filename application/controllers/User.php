@@ -71,16 +71,11 @@ class User extends CI_Controller {
 	}
 	
 	public function fcm_test() {
-		$userID = 1;
-		$fcmToken = $this->db->get_where('users', array(
-		    'id' => $userID
-		  ))->row_array()['fcm_token'];
-		$server_key = 'AAAAon_cfQo:APA91bEL0BldzQJ3z8yJl4ePybkpyvARvRXsyw4tSMJj9ffDWjkzlzBWTZsJnbx3c9hKaaagjC8gIHsFfPeDMK29L70yIwAJtlMuMHHKphUNLc4yHWUoaCZmnuPTG8hAZfZPp1VKN-PX';
     $url = "https://fcm.googleapis.com/fcm/send";
-    $token = $fcmToken;
-    $serverKey = $server_key;
-    $title = "Informasi Pembayaran";
-    $body = "Ketuk untuk info lebih lanjut";
+    $token = "dXMZZSKXDtQ:APA91bFLR4i9LtNzppB2-yO_gCe-cyd2wxlI91lsk7JKRMEW3aWszOBaoOz3xXQXIfQSqgigHfvIxNSAUQUUu-ZUnOS6MFGs4qNjtGwA_aTCUzLirNGmpIaqasuCMNteW98EVn5f4BxS";
+    $serverKey = 'AAAAon_cfQo:APA91bEL0BldzQJ3z8yJl4ePybkpyvARvRXsyw4tSMJj9ffDWjkzlzBWTZsJnbx3c9hKaaagjC8gIHsFfPeDMK29L70yIwAJtlMuMHHKphUNLc4yHWUoaCZmnuPTG8hAZfZPp1VKN-PX';
+    $title = "Notification title";
+    $body = "Hello I am from Your php server";
     $notification = array('title' =>$title , 'body' => $body, 'sound' => 'default', 'badge' => '1');
     $arrayToSend = array('to' => $token, 'notification' => $notification,'priority'=>'high');
     $json = json_encode($arrayToSend);
@@ -95,6 +90,9 @@ class User extends CI_Controller {
     //Send the request
     $response = curl_exec($ch);
     //Close request
+    if ($response === FALSE) {
+    die('FCM Send Error: ' . curl_error($ch));
+    }
     curl_close($ch);
 	}
 }
