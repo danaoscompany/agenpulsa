@@ -2,6 +2,15 @@
 
 class User extends CI_Controller {
 
+	public function update_fcm_token() {
+		$userID = intval($this->input->post('user_id'));
+		$token = $this->input->post('token');
+		$this->db->where('id', $userID);
+		$this->db->update('users', array(
+			'fcm_token' => $token
+		));
+	}
+
 	public function purchase() {
 		$refID = $this->input->post('ref_id');
 		$code = $this->input->post('code');
