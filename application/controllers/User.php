@@ -49,7 +49,11 @@ class User extends CI_Controller {
     $title = "Informasi Pembayaran";
     $body = "Ketuk untuk info lebih lanjut";
     $notification = array('title' =>$title , 'body' => $body, 'sound' => 'default', 'badge' => '1');
-    $arrayToSend = array('to' => $token, 'notification' => $notification,'priority'=>'high');
+    $arrayToSend = array('to' => $token, 'notification' => $notification,'priority'=>'high', 'data' => [
+    	'user_id' = "" . $userID,
+    	'ref_id' = $refID,
+    	'payment_status' = "" . $status
+    ]);
     $json = json_encode($arrayToSend);
     $headers = array();
     $headers[] = 'Content-Type: application/json';
