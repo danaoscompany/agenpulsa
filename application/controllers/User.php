@@ -35,6 +35,10 @@ class User extends CI_Controller {
 		$obj = json_decode($data, true);
 		$status = intval($obj['data']['status']);
 		$refID = $obj['data']['ref_id'];
+		$this->db->where('ref_id', $refID);
+		$this->db->update('transactions', array(
+		  'status' => $status
+		  ));
 		$transaction = $this->db->get_where('transactions', array(
 		    'ref_id' => $refID
 		  ))->row_array();
