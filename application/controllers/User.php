@@ -58,7 +58,7 @@ class User extends CI_Controller {
     }
     $notification = array('title' => $title, 'body' => $body, 'sound' => 'default', 'badge' => '1');
     $arrayToSend = array('to' => $token, 'notification' => $notification,'priority'=>'high', 'data' => [
-        'action' => 'com.prod.agenpulsa.PAYMENT_SUCCESS',
+        'click_action' => 'com.prod.agenpulsa.PAYMENT_SUCCESS',
         'payment_status' => '' . $status,
         'ref_id' => $refID,
         'transaction_id' => '' . $transactionID,
