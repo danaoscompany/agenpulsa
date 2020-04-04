@@ -43,6 +43,7 @@ class User extends CI_Controller {
 		    'ref_id' => $refID
 		  ))->row_array();
 		$userID = intval($transaction['user_id']);
+		$transactionID = intval($transaction['transaction_id']);
 		$token = $this->db->get_where('users', array(
 		    'id' => $userID
 		  ))->row_array()['fcm_token'];
@@ -59,7 +60,11 @@ class User extends CI_Controller {
     $arrayToSend = array('to' => $token, 'notification' => $notification,'priority'=>'high', 'data' => [
         'action' => 'com.prod.agenpulsa.PAYMENT_SUCCESS',
         'payment_status' => '' . $status,
-        'ref_id' => $refID
+        'ref_id' => $refID,
+        'transaction_id' => '' . $transactionID,
+        'phone' => $transaction['phone'],
+        'price' => $transaction['price'],
+        'remaining_balance' => $transaction['remaining_balance']
       ]);
     $json = json_encode($arrayToSend);
     $headers = array();
