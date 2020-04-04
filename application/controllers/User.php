@@ -69,4 +69,31 @@ class User extends CI_Controller {
     curl_close($ch);
 	}
 	
+	public function fcm_test() {
+		$userID = 1;
+		$fcmToken = $this->db->get_where('users', array(
+		    'id' => $userID
+		  ))->row_array()['fcm_token'];
+		$server_key = 'AAAAon_cfQo:APA91bEL0BldzQJ3z8yJl4ePybkpyvARvRXsyw4tSMJj9ffDWjkzlzBWTZsJnbx3c9hKaaagjC8gIHsFfPeDMK29L70yIwAJtlMuMHHKphUNLc4yHWUoaCZmnuPTG8hAZfZPp1VKN-PX';
+    $url = "https://fcm.googleapis.com/fcm/send";
+    $token = $fcmToken;
+    $serverKey = $server_key;
+    $title = "Informasi Pembayaran";
+    $body = "Ketuk untuk info lebih lanjut";
+    $notification = array('title' =>$title , 'body' => $body, 'sound' => 'default', 'badge' => '1');
+    $arrayToSend = array('to' => $token, 'notification' => $notification,'priority'=>'high');
+    $json = json_encode($arrayToSend);
+    $headers = array();
+    $headers[] = 'Content-Type: application/json';
+    $headers[] = 'Authorization: key='. $serverKey;
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST,"POST");
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
+    curl_setopt($ch, CURLOPT_HTTPHEADER,$headers);
+    //Send the request
+    $response = curl_exec($ch);
+    //Close request
+    curl_close($ch);
+	}
 }
