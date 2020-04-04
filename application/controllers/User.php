@@ -62,4 +62,5 @@ class User extends CI_Controller {
     //Close request
     curl_close($ch);
 	}
+	
 }
