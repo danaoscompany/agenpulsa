@@ -12,6 +12,7 @@ class User extends CI_Controller {
 	}
 
 	public function purchase() {
+		$userID = intval($this->input->post('user_id'));
 		$refID = $this->input->post('ref_id');
 		$code = $this->input->post('code');
 		$phone = $this->input->post('phone');
@@ -19,6 +20,7 @@ class User extends CI_Controller {
 		$balance = intval($this->input->post('balance'));
 		$transactionID = intval($this->input->post('transaction_id'));
 		$this->db->insert('transactions', array(
+			'user_id' => $userID,
 			'ref_id' => $refID,
 			'code' => $code,
 			'phone' => $phone,
