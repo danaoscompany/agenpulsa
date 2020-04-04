@@ -52,7 +52,8 @@ class User extends CI_Controller {
     $arrayToSend = array('to' => $token, 'notification' => $notification,'priority'=>'high', 'data' => [
     	'user_id' => "" . $userID,
     	'ref_id' => $refID,
-    	'payment_status' => "" . $status
+    	'payment_status' => "" . $status,
+    	'action' => 'com.prod.agenpulsa.PAYMENT_SUCCESS'
     ]);
     $json = json_encode($arrayToSend);
     $headers = array();
