@@ -25,9 +25,10 @@ class User extends CI_Controller {
 		$this->db->update('transactions');*/
 		
 		$data = file_get_contents('php://input');
-		$my_file = 'callback.jsom';
+		$my_file = 'callback.json';
 		$handle = fopen($my_file, 'w') or die('Cannot open file:  '.$my_file);
 		fwrite($handle, $data);
 		fclose($handle);
+		echo "Halo dunia";
 	}
 }
