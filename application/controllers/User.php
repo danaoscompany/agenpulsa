@@ -39,22 +39,19 @@ class User extends CI_Controller {
 		    'ref_id' => $refID
 		  ))->row_array();
 		$userID = intval($transaction['user_id']);
-		$fcmToken = $this->db->get_where('users', array(
+		$token = $this->db->get_where('users', array(
 		    'id' => $userID
 		  ))->row_array()['fcm_token'];
-		$server_key = 'AAAAon_cfQo:APA91bEL0BldzQJ3z8yJl4ePybkpyvARvRXsyw4tSMJj9ffDWjkzlzBWTZsJnbx3c9hKaaagjC8gIHsFfPeDMK29L70yIwAJtlMuMHHKphUNLc4yHWUoaCZmnuPTG8hAZfZPp1VKN-PX';
     $url = "https://fcm.googleapis.com/fcm/send";
-    $token = $fcmToken;
-    $serverKey = $server_key;
-    $title = "Informasi Pembayaran";
-    $body = "Ketuk untuk info lebih lanjut";
+    $serverKey = 'AAAAon_cfQo:APA91bEL0BldzQJ3z8yJl4ePybkpyvARvRXsyw4tSMJj9ffDWjkzlzBWTZsJnbx3c9hKaaagjC8gIHsFfPeDMK29L70yIwAJtlMuMHHKphUNLc4yHWUoaCZmnuPTG8hAZfZPp1VKN-PX';
+    $title = "Notification title";
+    $body = "Hello I am from Your php server";
     $notification = array('title' =>$title , 'body' => $body, 'sound' => 'default', 'badge' => '1');
     $arrayToSend = array('to' => $token, 'notification' => $notification,'priority'=>'high', 'data' => [
-    	'user_id' => "" . $userID,
-    	'ref_id' => $refID,
-    	'payment_status' => "" . $status,
-    	'action' => 'com.prod.agenpulsa.PAYMENT_SUCCESS'
-    ]);
+        'action' => 'com.prod.agenpulsa.PAYMENT_SUCCESS',
+        'payment_status' => '' . $status,
+        'ref_id' => $refID
+      ]);
     $json = json_encode($arrayToSend);
     $headers = array();
     $headers[] = 'Content-Type: application/json';
@@ -67,6 +64,9 @@ class User extends CI_Controller {
     //Send the request
     $response = curl_exec($ch);
     //Close request
+    if ($response === FALSE) {
+    die('FCM Send Error: ' . curl_error($ch));
+    }
     curl_close($ch);
 	}
 	
