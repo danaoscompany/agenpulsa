@@ -56,9 +56,8 @@ class User extends CI_Controller {
     } else if ($status == 2) {
       $title = 'Pembayaran gagal';
     }
-    $notification = array('title' => $title, 'body' => $body, 'sound' => 'default', 'badge' => '1');
+    $notification = array('title' => $title, 'body' => $body, 'sound' => 'default', 'click_action' => 'com.prod.agenpulsa.PAYMENT_SUCCESS', 'badge' => '1');
     $arrayToSend = array('to' => $token, 'notification' => $notification,'priority'=>'high', 'data' => [
-        'click_action' => 'com.prod.agenpulsa.PAYMENT_SUCCESS',
         'payment_status' => '' . $status,
         'ref_id' => $refID,
         'transaction_id' => '' . $transactionID,
